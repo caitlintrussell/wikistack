@@ -39,12 +39,17 @@ app.use(express.static(path.join(__dirname, '/public')));
 // })
 // .catch(console.error.bind(console));
 
+// app.use('/', (err, res, req, next) => {
+//   const error = new Error(err);
+//   error.status = err.status || 500;
+//   error.message = err.message || 'Internal Server Error';
+// })
 
 
 models.db.sync({ force: true })
   .then(() => {
     const PORT = 1337;
     app.listen(PORT, () => console.log(`server awaiting requests on ${PORT}`))
-    .catch(console.error.bind(console));
-})
+
+}).catch(console.error.bind(console));
 
