@@ -46,9 +46,9 @@ app.use(express.static(path.join(__dirname, '/public')));
 // })
 
 
-models.db.sync({ force: true })
+models.db.sync({ force: false })
   .then(() => {
-    const PORT = 1337;
+    const PORT = 3000;
     app.listen(PORT, () => console.log(`server awaiting requests on ${PORT}`))
 
 }).catch(console.error.bind(console));

@@ -1,7 +1,6 @@
 const Sequelize = require('sequelize');
 const db = new Sequelize('postgres://localhost:5432/wikistack');
 
-
 const generateUrlTitle = title => {
   if (title) {
     // Removes all non-alphanumeric characters from title

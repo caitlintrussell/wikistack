@@ -18,12 +18,29 @@ router.post('/', (req, res, next) => {
   })
 
   page.save()
-  .then(res.redirect('/') )
+  .then(function success(result){
+    res.redirect(result.route);
+  })
   // .catch(console.log('somethings wrong'));
 });
 
 router.get('/add', (req, res, next) => {
   res.render('../views/addpage.html')
+})
+
+router.get('/:urlTitle', (req, res, next)=>{
+  models.Page.findAll({
+    // attributes: ['urlTitle'],
+    where: {urlTitle: req.params.urlTitle}
+  })
+  .then(foundPage => {
+    res.render('../views/wikipage.html', {
+      title: foundPage[0].dataValues.title,
+      urlTitle: foundPage[0].dataValues.urlTitle,
+      content: foundPage[0].dataValues.content
+    })
+    console.log('*******',foundPage);
+  })
 })
 
 

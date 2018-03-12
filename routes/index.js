@@ -10,7 +10,16 @@ const userRouter = require('./user');
 router.use('/wiki', wikiRouter);
 router.use('/user', userRouter);
 router.get('/', (req, res, next) => {
-  res.render('../views/index.html');
+  const pages = models.Page.findAll()
+  .then(foundPage=>{
+    res.render('../views/index.html', {
+      title: foundPage
+  })
+
+
+      // attributes: ['title', 'route']
+    })
+  })
 })
 
 
