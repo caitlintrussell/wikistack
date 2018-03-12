@@ -4,6 +4,7 @@ const express = require('express');
 const app = express();
 const router = require('./routes');
 const path = require('path');
+const models = require('./models');
 
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
@@ -26,10 +27,24 @@ app.use('/', router);
 
 app.use(express.static(path.join(__dirname, '/public')));
 
+// models.User.sync().then(function(){
+//   console.log('User table created!');
+//   return models.Page.sync()
+// })
+// .then(function(){
+//   console.log('Page table created');
+//   app.listen(5432, function(){
+//     console.log('Server is listening on 5432');
+//   })
+// })
+// .catch(console.error.bind(console));
 
-db.sync({ force: true })
+
+
+models.db.sync({ force: true })
   .then(() => {
     const PORT = 1337;
-    app.listen(PORT, () => console.log(`server awaiting requests on ${PORT}`));
+    app.listen(PORT, () => console.log(`server awaiting requests on ${PORT}`))
+    .catch(console.error.bind(console));
 })
 
